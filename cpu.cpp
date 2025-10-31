@@ -5,9 +5,9 @@
 #include <thread>
 #include <vector>
     
-void long_operation(std::vector<int>& arr)
+void long_operation(int* arr, int size)
 {
-    for (int i = 0; i < 1e6; i++) {
+    for (int i = 0; i < size; i++) {
       arr[i] = i;
     }
 }
@@ -19,9 +19,10 @@ int main()
     using std::chrono::duration;
     using std::chrono::milliseconds;
 
-    std::vector<int> arr(1e6);
     auto t1 = high_resolution_clock::now();
-    long_operation(arr);
+    int size = 1;
+    int* arr = new int[size];
+    long_operation(arr, size);
     auto t2 = high_resolution_clock::now();
 
     /* Getting number of milliseconds as an integer. */
