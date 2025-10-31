@@ -11,7 +11,7 @@ __global__ void long_operation_kernel(int* arr, int size) {
 
 int main() {
     // Define the size of the array
-    const int size = 1e6;  // Set the array size (1 million elements)
+    const int size = 1;  // Set the array size (1 million elements)
 
     // Allocate host memory
     int* arr = new int[size];  
@@ -64,12 +64,6 @@ int main() {
     // Clean up events
     cudaEventDestroy(start);
     cudaEventDestroy(stop);
-
-    // Optionally print some results to verify
-    std::cout << "First 10 values: ";
-    for (int i = 0; i < 10; i++) {
-        std::cout << arr[i] << " ";
-    }
     std::cout << std::endl;
 
     // Clean up the dynamically allocated array
