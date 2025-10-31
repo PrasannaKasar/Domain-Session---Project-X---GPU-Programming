@@ -1,37 +1,38 @@
-#include <chrono>
-
-/* Only needed for the sake of this example. */
 #include <iostream>
-#include <thread>
 #include <vector>
-    
-void long_operation(int* arr, int size)
-{
-    for (int i = 0; i < size; i++) {
-      arr[i] = i;
+#include <ctime>
+
+void matrix_multiply(const std::vector<std::vector<int>>& A, const std::vector<std::vector<int>>& B, std::vector<std::vector<int>>& C) {
+    int n = A.size();
+    int m = B[0].size();
+    int k = B.size();
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            C[i][j] = 0;
+            for (int l = 0; l < k; ++l) {
+                C[i][j] += A[i][l] * B[l][j];
+            }
+        }
     }
 }
 
-int main()
-{
-    using std::chrono::high_resolution_clock;
-    using std::chrono::duration_cast;
-    using std::chrono::duration;
-    using std::chrono::milliseconds;
+int main() {
+    int n = 100, k = 100, m = 100; // For example, matrices of size 1024x1024
 
-    auto t1 = high_resolution_clock::now();
-    int size = 1;
-    int* arr = new int[size];
-    long_operation(arr, size);
-    auto t2 = high_resolution_clock::now();
+    // Initialize matrices A and B with random values
+    std::vector<std::vector<int>> A(n, std::vector<int>(k, 1));
+    std::vector<std::vector<int>> B(k, std::vector<int>(m, 1));
+    std::vector<std::vector<int>> C(n, std::vector<int>(m, 0));
 
-    /* Getting number of milliseconds as an integer. */
-    auto ms_int = duration_cast<milliseconds>(t2 - t1);
+    clock_t start_time = clock();
+    
+    // Perform matrix multiplication
+    matrix_multiply(A, B, C);
 
-    /* Getting number of milliseconds as a double. */
-    duration<double, std::milli> ms_double = t2 - t1;
+    clock_t end_time = clock();
+    double duration = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // milliseconds
+    std::cout << "CPU matrix multiplication time: " << duration << " ms" << std::endl;
 
-    std::cout << ms_int.count() << "ms\n";
-    std::cout << ms_double.count() << "ms\n";
     return 0;
 }
