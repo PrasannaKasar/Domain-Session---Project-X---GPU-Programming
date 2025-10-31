@@ -23,7 +23,7 @@ int main() {
     cudaEventCreate(&stop);
     cudaEventRecord(start);
 
-    int n = 100, k = 100, m = 100;  // For example, matrices of size n x k and k x m
+    int n = 1, k = 1, m = 1;  // For example, matrices of size n x k and k x m
 
     // Initialize matrices A and B with random values
     std::vector<float> A(n * k, 1.0f); // Matrix A (n x k)

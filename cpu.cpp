@@ -18,7 +18,7 @@ void matrix_multiply(const std::vector<std::vector<int>>& A, const std::vector<s
 }
 
 int main() {
-    int n = 100, k = 100, m = 100; // For example, matrices of size 1024x1024
+    int n = 1, k = 1, m = 1; // For example, matrices of size 1024x1024
 
     // Initialize matrices A and B with random values
     std::vector<std::vector<int>> A(n, std::vector<int>(k, 1));
